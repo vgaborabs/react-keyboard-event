@@ -1,13 +1,13 @@
-# react-use-keyboard
+# react-keyboard-event
 
 > React hook for using keyboard events
 
-[![NPM](https://img.shields.io/npm/v/react-use-keyboard.svg)](https://www.npmjs.com/package/react-use-keyboard) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-keyboard-event.svg)](https://www.npmjs.com/package/react-keyboard-event) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-use-keyboard
+npm install --save react-keyboard-event
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install --save react-use-keyboard
 ```tsx
 import * as React from 'react'
 
-import useKeyboard from 'react-use-keyboard'
+import useKeyboard from 'react-keyboard-event'
 
 const Example = () => {
     const {keyboardHandlers} = useKeyboard({

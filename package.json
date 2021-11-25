@@ -1,10 +1,10 @@
 {
-  "name": "react-use-keyboard",
+  "name": "react-keyboard-event",
   "version": "1.0.0",
   "description": "React hook for using keyboard events",
   "author": "vgaborabs",
   "license": "MIT",
-  "repository": "vgaborabs/react-use-keyboard",
+  "repository": "vgaborabs/react-keyboard-event",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",

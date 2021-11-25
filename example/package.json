@@ -1,6 +1,6 @@
 {
-  "name": "react-use-keyboard-example",
-  "homepage": "https://vgaborabs.github.io/react-use-keyboard",
+  "name": "react-keyboard-event-example",
+  "homepage": "https://vgaborabs.github.io/react-keyboard-event",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
@@ -8,7 +8,7 @@
     "react": "file:../node_modules/react",
     "react-dom": "^16.9.0",
     "react-scripts": "^3.0.1",
-    "react-use-keyboard": "file:.."
+    "react-keyboard-event": "file:.."
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import useKeyboard from "react-use-keyboard";
+import useKeyboard from "react-keyboard-event";
 
 const App = () => {
     const [arrows, setArrows] = useState([])
