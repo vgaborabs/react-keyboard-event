@@ -1,4 +1,4 @@
-import useKeyboard from './'
+import {useKeyboard} from './'
 import { renderHook } from "@testing-library/react-hooks";
 
 

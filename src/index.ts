@@ -74,7 +74,7 @@ const addToState = (state: KeyboardState, entry: ListenerConfig): KeyboardState 
     return state
 }
 
-const useKeyboard = (props: KeyboardProps): KeyboardResult => {
+export const useKeyboard = (props: KeyboardProps): KeyboardResult => {
 
     const [active, setActive] = useState<boolean>(false)
 
@@ -158,5 +158,3 @@ const useKeyboard = (props: KeyboardProps): KeyboardResult => {
 
     return {eventListener, addKeyboardListener, removeKeyboardListener, keyboardHandlers}
 }
-
-export default useKeyboard

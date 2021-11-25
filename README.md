@@ -15,7 +15,7 @@ npm install --save react-keyboard-event
 ```tsx
 import * as React from 'react'
 
-import useKeyboard from 'react-keyboard-event'
+import { useKeyboard } from 'react-keyboard-event'
 
 const Example = () => {
     const {keyboardHandlers} = useKeyboard({
