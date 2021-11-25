@@ -49,6 +49,7 @@ const Example = () => {
     )
 }
 ```
+Check out the examples for detailed usage
 
 ## License
 

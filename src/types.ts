@@ -8,18 +8,30 @@ export type KeyEventMap = {
 
 export type KeyEventListener = (event: KeyEvent) => void
 
-export type KeyConfig = {
+export type KeyConfig = Partial<Modifiers> & {
     key: string | Array<string>
-    alt?: boolean
-    ctrl?: boolean
-    shift?: boolean
 }
 
-export type KeyboardProps = ListenerConfigOptions & {
+export type Modifiers = {
+    alt: boolean
+    ctrl: boolean
+    shift: boolean
+    meta: boolean
+}
+
+export type KeyboardProps = KeyboardListenAndElementRef & {
     listeners: Array<ListenerConfig> | SimpleListenerConfig
+} & Partial<KeyboardEventTypes>
+
+export type KeyboardListenAndElementRef = ListenerConfigOptions & {
     shouldListen?: boolean | (() => boolean)
-    ref?: React.MutableRefObject<HTMLElement>
-    eventTypes?: Array<keyof KeyEventMap>
+    elementRef?: React.MutableRefObject<HTMLElement>
+}
+
+export type KeyboardOptions = KeyboardListenAndElementRef & KeyboardEventTypes
+
+export type KeyboardEventTypes = {
+    eventTypes: Array<keyof KeyEventMap>
 }
 
 export type SimpleListenerConfig = {
@@ -45,10 +57,13 @@ export type KeyboardHandlers = {
     onKeyUp?(event: React.KeyboardEvent): void
 }
 
-export type KeyboardResult = {
-    eventListener: KeyEventListener
+export type KeyboardListenerHandlers = {
     addKeyboardListener(): void
     removeKeyboardListener(): void
+}
+
+export type KeyboardResult = KeyboardListenerHandlers & {
+    eventListener: KeyEventListener
     keyboardHandlers: KeyboardHandlers
 }
 
@@ -58,3 +73,8 @@ export type KeyboardState = {
 }
 
 export type MultiValueMap<T> = Map<string, Array<T>>
+
+export type EventListenerTarget = {
+    addEventListener(event: keyof KeyEventMap, callback: KeyEventListener): void
+    removeEventListener(event: keyof KeyEventMap, callback: KeyEventListener): void
+}
