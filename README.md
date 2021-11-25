@@ -1,6 +1,6 @@
 # react-use-keyboard
 
-> React hook for using keyboard event listeners
+> React hook for using keyboard events
 
 [![NPM](https://img.shields.io/npm/v/react-use-keyboard.svg)](https://www.npmjs.com/package/react-use-keyboard) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -15,15 +15,38 @@ npm install --save react-use-keyboard
 ```tsx
 import * as React from 'react'
 
-import { useMyHook } from 'react-use-keyboard'
+import useKeyboard from 'react-use-keyboard'
 
 const Example = () => {
-  const example = useMyHook()
-  return (
-    <div>
-      {example}
-    </div>
-  )
+    const {keyboardHandlers} = useKeyboard({
+        listeners: { // define listeners as an object for easy configuration
+            "Enter": (event) => {/* do something */},
+            "Escape": (event) => {/* do another thing */}
+        },
+        preventDefault: true // set to true to prevent default for all listeners
+    })
+
+    useKeyboard({
+        listeners: [ // define the listeners as an array of configuration objects for more granular control
+            {
+                key: "Home", // use the key only
+                callback: (event) => {/* do something */},
+                options: {
+                    preventDefault: true  // set to true to prevent default for current listener
+                }
+            },
+            {
+                key: {key: "End", ctrl: true}, // use ctrl, alt, and/or shift modifier keys
+                callback: (event) => {/* do something */}
+            }
+        ],
+        shouldListen: true // if true, listerners are registered automatically
+    })
+    return (
+        <div>
+            <input type="text" {...keyboardHandlers}/>
+        </div>
+    )
 }
 ```
 
