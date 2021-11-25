@@ -10,7 +10,7 @@ const App = () => {
     const [width, setWidth] = useState(50)
 
     const setArrow = (event) => {
-        setArrows((prev)=>[event.key, ...prev])
+        setArrows((prev) => [event.key, ...prev])
     }
 
     useKeyboard({
@@ -22,22 +22,22 @@ const App = () => {
         listeners: [
             {
                 key: {key: "ArrowDown", ctrl: true}, callback: () => {
-                    setHeight((prev) => prev+1)
+                    setHeight((prev) => prev + 1)
                 }
             },
             {
                 key: {key: "ArrowUp", ctrl: true}, callback: () => {
-                    setHeight((prev) => prev === 1 ? 1 : prev-1)
+                    setHeight((prev) => prev === 1 ? 1 : prev - 1)
                 }
             },
             {
                 key: {key: "ArrowRight", ctrl: true}, callback: () => {
-                    setWidth((prev) => prev+5)
+                    setWidth((prev) => prev + 5)
                 }
             },
             {
                 key: {key: "ArrowLeft", ctrl: true}, callback: () => {
-                    setWidth((prev) => prev === 50 ? 50 : prev-5)
+                    setWidth((prev) => prev === 50 ? 50 : prev - 5)
                 }
             }
         ]
@@ -49,9 +49,9 @@ const App = () => {
                 <button
                     onClick={() => {
                         setShouldListen(!shouldListen)
-                        if (shouldListen) setArrows([])
+                        if (!shouldListen) setArrows([])
                     }}>{shouldListen ? "Stop listening" : "Listen to arrows"}</button>
-                {shouldListen && <span>{arrows.join(", ")}</span>}
+                <span>{arrows.join(", ")}</span>
             </div>
             <div>
                 <textarea style={{resize: "none", overflow: "hidden"}} cols={width} rows={height}
