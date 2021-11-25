@@ -13,7 +13,14 @@ import {
 } from "./types";
 
 export type {
-    KeyboardProps, KeyboardResult, KeyEventListener, KeyEvent, KeyConfig, KeyboardHandlers, ListenerConfigOptions, ListenerConfig
+    KeyboardProps,
+    KeyboardResult,
+    KeyEventListener,
+    KeyEvent,
+    KeyConfig,
+    KeyboardHandlers,
+    ListenerConfigOptions,
+    ListenerConfig
 };
 
 const allEventTypes: KeyEventMap = {
@@ -56,6 +63,17 @@ const listenerKeys = (option: ListenerConfig): Array<string> => {
     return [convert({...keyProp, key: keyProp.key})]
 }
 
+const addToState = (state: KeyboardState, entry: ListenerConfig): KeyboardState => {
+    const key = entry.key as string
+    if (!state.listeners.has(key)) {
+        state.listeners.set(key, [])
+        state.options.set(key, [])
+    }
+    state.listeners.get(key)?.push(entry.callback)
+    state.options.get(key)?.push(entry.options || {})
+    return state
+}
+
 const useKeyboard = (props: KeyboardProps): KeyboardResult => {
 
     const [active, setActive] = useState<boolean>(false)
@@ -70,35 +88,17 @@ const useKeyboard = (props: KeyboardProps): KeyboardResult => {
 
     const state = useMemo<KeyboardState>(() => {
         if (Array.isArray(options.listeners)) {
-            return options.listeners.reduce<KeyboardState>((state, option) => {
-                    listenerKeys(option).forEach(key => {
-                        if (!state.listeners.has(key)) {
-                            state.listeners.set(key, [])
-                            state.options.set(key, [])
-                        }
-                        state.listeners.get(key)?.push(option.callback)
-                        state.options.get(key)?.push(option.options || {})
-                    })
-                    return state
-                },
-                defaultState())
+            return options.listeners.flatMap<ListenerConfig>(option => listenerKeys(option).map<ListenerConfig>(key => ({...option, key})))
+                .reduce<KeyboardState>(addToState, defaultState())
         }
-        return Object.entries(options.listeners).reduce<KeyboardState>((state, entry) => {
-            const key = convert({key: entry[0]})
-            if (!state.listeners.has(key)) {
-                state.listeners.set(key, [])
-                state.options.set(key, [])
-            }
-            if (typeof entry[1] === "function") {
-                state.listeners.get(key)?.push(entry[1])
-                state.options.get(key)?.push({})
-            } else {
-                state.listeners.get(key)?.push(entry[1].callback)
-                state.options.get(key)?.push(entry[1].options || {})
-            }
-            return state
-        }, defaultState())
-    }, [options.listeners, listenerKeys])
+        return Object.entries(options.listeners)
+            .map<ListenerConfig>(entry => ({
+                key: convert({key: entry[0]}),
+                callback: typeof entry[1] === "function" ? entry[1] : entry[1].callback,
+                options: typeof entry[1] === "function" ? {} : entry[1].options || {}
+            }))
+            .reduce<KeyboardState>(addToState, defaultState())
+    }, [options.listeners])
 
 
     const eventListener = useCallback<KeyEventListener>((event) => {
@@ -122,7 +122,7 @@ const useKeyboard = (props: KeyboardProps): KeyboardResult => {
             options.eventTypes.forEach(eventType => document.addEventListener(eventType, eventListener))
         }
         setActive(true)
-    }, /* eslint-disable react-hooks/exhaustive-deps */[])
+    },[])
 
     const removeKeyboardListener = useCallback(() => {
         if (!options.eventTypes) {
@@ -134,7 +134,7 @@ const useKeyboard = (props: KeyboardProps): KeyboardResult => {
             options.eventTypes.forEach(eventType => document.removeEventListener(eventType, eventListener))
         }
         setActive(false)
-    }, /* eslint-disable react-hooks/exhaustive-deps */[])
+    }, [])
 
     const keyboardHandlers = useMemo<KeyboardHandlers>(() => {
         if (!options.eventTypes) {
@@ -154,7 +154,7 @@ const useKeyboard = (props: KeyboardProps): KeyboardResult => {
         return () => {
             if (active) removeKeyboardListener()
         }
-    }, /* eslint-disable react-hooks/exhaustive-deps */[options.shouldListen])
+    }, [options.shouldListen])
 
     return {eventListener, addKeyboardListener, removeKeyboardListener, keyboardHandlers}
 }
