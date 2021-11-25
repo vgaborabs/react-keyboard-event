@@ -1,6 +1,6 @@
 {
   "name": "react-keyboard-event",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React hook for using keyboard events",
   "author": "vgabor-abs",
   "license": "MIT",

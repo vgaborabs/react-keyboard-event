@@ -91,7 +91,7 @@ const addToState = (state: KeyboardState, entry: ListenerConfig): KeyboardState 
     return state
 }
 
-export const useKeyboard = (props: KeyboardProps): KeyboardResult => {
+export function useKeyboard(props: KeyboardProps): KeyboardResult {
 
     const {shouldListen} = props
     const active = useRef<boolean>(false)

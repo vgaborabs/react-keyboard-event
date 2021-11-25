@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react'
 
-import {useKeyboard} from "react-keyboard-event";
+import { useKeyboard } from "react-keyboard-event";
 
 const App = () => {
 
