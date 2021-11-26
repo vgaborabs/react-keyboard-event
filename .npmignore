@@ -1,8 +1,0 @@
-example
-node_modules
-src
-.gitignore
-.idea
-.env
-.travis.yml
-rollup.config.js
